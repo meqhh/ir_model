@@ -9,6 +9,7 @@
     'category': 'other',
     'website': 'https://www.github.com/meqhh',
     'depends': [
+        'base'
     ],
     'license': 'LGPL-3',
     'data': [
