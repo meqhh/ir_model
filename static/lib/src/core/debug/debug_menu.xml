@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="web.DebugMenu" t-inherit-mode="extension">
+        <xpath expr="//Dropdown" position="before">
+            <div class="o-dropdown dropdown o_debug_manager o-dropdown--no-caret">
+                <button type="button" class="dropdown-toggle o-dropdown--narrow" tabindex="0" aria-expanded="false" t-on-click="viewMetaData">
+                    <i class="fa fa-bug" role="img" aria-label="Open developer tools"/>
+                </button>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="ir_model.MetadataDialog">
+        <Dialog title="title">
+            <table class="table table-sm table-striped">
+                <tr>
+                    <th>ID:</th>
+                    <td><t t-esc="state.id"/></td>
+                </tr>
+                <tr>
+                    <th>XML ID:</th>
+                    <td>
+                        <t t-if='state.xmlids.length > 1'>
+                            <t t-foreach="state.xmlids" t-as="imd" t-key="imd['xmlid']">
+                                <div
+                                    t-att-class='"p-0 " + (imd["xmlid"] === state.xmlid ? "fw-bolder " : "") + (imd["noupdate"] === true ? "fst-italic " : "")'
+                                    t-esc="imd['xmlid']" />
+                            </t>
+                        </t>
+                        <t t-elif="state.xmlid" t-esc="state.xmlid"/>
+                        <t t-else="">
+                            / <a t-on-click="onClickCreateXmlid"> (create)</a>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <th>No Update:</th>
+                    <td>
+                        <t t-esc="state.noupdate"/>
+                        <t t-if="state.xmlid">
+                            <a t-on-click="toggleNoupdate"> (change)</a>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Creation User:</th>
+                    <td><t t-esc="state.creator"/></td>
+                </tr>
+                <tr>
+                    <th>Creation Date:</th>
+                    <td><t t-esc="state.createDate"/></td>
+                </tr>
+                <tr>
+                    <th>Latest Modification by:</th>
+                    <td><t t-esc="state.lastModifiedBy"/></td>
+                </tr>
+                <tr>
+                    <th>Latest Modification Date:</th>
+                    <td><t t-esc="state.writeDate"/></td>
+                </tr>
+            </table>
+        </Dialog>
+    </t>
+
+</templates>
